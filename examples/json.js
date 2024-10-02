@@ -1,13 +1,13 @@
 'use strict';
 
-const winston = require('../');
+const marley = require('../');
 
 //
-// As of winston@3, the default logging format is JSON.
+// As of marley@3, the default logging format is JSON.
 //
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
-    new winston.transports.Console(),
+    new marley.transports.Console(),
   ]
 });
 

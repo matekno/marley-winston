@@ -1,17 +1,17 @@
-// Type definitions for winston 3.0
-// Project: https://github.com/winstonjs/winston
+// Type definitions for marley 3.0
+// Project: https://github.com/marleyjs/marley
 
 /// <reference types="node" />
 
 import * as NodeJSStream from 'stream';
 
 import * as logform from 'logform';
-import * as Transport from 'winston-transport';
+import * as Transport from 'marley-transport';
 
-import * as Config from './lib/winston/config/index';
-import * as Transports from './lib/winston/transports/index';
+import * as Config from './lib/marley/config/index';
+import * as Transports from './lib/marley/transports/index';
 
-declare namespace winston {
+declare namespace marley {
   // Hoisted namespaces from other modules
   export import format = logform.format;
   export import Logform = logform;
@@ -216,4 +216,4 @@ declare namespace winston {
   // let default: object;
 }
 
-export = winston;
+export = marley;

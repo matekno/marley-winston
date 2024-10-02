@@ -1,15 +1,15 @@
 'use strict';
 
-const winston = require('../');
+const marley = require('../');
 
-const logger = module.exports = winston.createLogger({
-  transports: [new winston.transports.Console()],
-  format: winston.format.combine(
-    winston.format(function dynamicContent(info, opts) {
+const logger = module.exports = marley.createLogger({
+  transports: [new marley.transports.Console()],
+  format: marley.format.combine(
+    marley.format(function dynamicContent(info, opts) {
       info.message = '[dynamic content] ' + info.message;
       return info;
     })(),
-    winston.format.simple()
+    marley.format.simple()
   )
 });
 

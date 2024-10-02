@@ -80,7 +80,7 @@ logger.log('info', 'test message %s, %s', 'first', 'second', { number: 123 });
 
 // prints "Found error at %s"
 logger.info('Found %s at %s', 'error', new Date());
-logger.info('Found %s at %s', 'error', new Error('chill winston'));
+logger.info('Found %s at %s', 'error', new Error('chill marley'));
 logger.info('Found %s at %s', 'error', /WUT/);
 logger.info('Found %s at %s', 'error', true);
 logger.info('Found %s at %s', 'error', 100.00);

@@ -1,12 +1,12 @@
 const path = require('path');
 const { MESSAGE } = require('triple-beam');
-const winston = require('../');
+const marley = require('../');
 
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   level: 'info',
-  format: winston.format.printf(info => `${info.message}`),
+  format: marley.format.printf(info => `${info.message}`),
   transports: [
-    new winston.transports.File({
+    new marley.transports.File({
       filename: path.join(__dirname, 'error.log'),
       level: 'info',
       maxsize: 500

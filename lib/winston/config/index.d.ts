@@ -1,9 +1,9 @@
-// Type definitions for winston 3.0
-// Project: https://github.com/winstonjs/winston
+// Type definitions for marley 3.0
+// Project: https://github.com/marleyjs/marley
 
 /// <reference types="node" />
 
-declare namespace winston {
+declare namespace marley {
   interface AbstractConfigSetLevels {
     [key: string]: number;
   }
@@ -95,5 +95,5 @@ declare namespace winston {
   }
 }
 
-declare const winston: winston.Config;
-export = winston;
+declare const marley: marley.Config;
+export = marley;

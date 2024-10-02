@@ -1,4 +1,4 @@
-const winston = require('../');
+const marley = require('../');
 
 const config = {
   levels: {
@@ -21,18 +21,18 @@ const config = {
   }
 };
 
-winston.addColors(config.colors);
-const wLogger = (input: { logName: string; level: string }): winston.Logger =>
-  winston.createLogger({
+marley.addColors(config.colors);
+const wLogger = (input: { logName: string; level: string }): marley.Logger =>
+  marley.createLogger({
     levels: config.levels,
     level: `${input.level}`,
     transports: [
-      new winston.transports.Console({
+      new marley.transports.Console({
         level: `${input.level}`,
 
-        format: winston.format.combine(
-          winston.format.timestamp(),
-          winston.format.printf(
+        format: marley.format.combine(
+          marley.format.timestamp(),
+          marley.format.printf(
             info =>
               // https://stackoverflow.com/a/69044670/20358783 more detailLocaleString
               `${new Date(info.timestamp).toLocaleDateString('tr-Tr', {
@@ -43,13 +43,13 @@ const wLogger = (input: { logName: string; level: string }): winston.Logger =>
                 minute: '2-digit'
               })} ${info.level.toLocaleUpperCase()}: ${info.message}`
           ),
-          winston.format.colorize({ all: true })
+          marley.format.colorize({ all: true })
         )
       }),
-      new winston.transports.File({
+      new marley.transports.File({
         filename: `./src/logs/${input.logName}/${input.logName}-Error.log`,
         level: 'error',
-        format: winston.format.printf(
+        format: marley.format.printf(
           info =>
             `${new Date(info.timestamp).toLocaleDateString('tr-Tr', {
               year: 'numeric',
@@ -60,10 +60,10 @@ const wLogger = (input: { logName: string; level: string }): winston.Logger =>
             })} ${info.level.toLocaleUpperCase()}: ${info.message}`
         )
       }),
-      new winston.transports.File({
+      new marley.transports.File({
         filename: `./src/logs/${input.logName}/${input.logName}-Warn.log`,
         level: 'warn',
-        format: winston.format.printf(
+        format: marley.format.printf(
           info =>
             `${new Date(info.timestamp).toLocaleDateString('tr-Tr', {
               year: 'numeric',
@@ -74,10 +74,10 @@ const wLogger = (input: { logName: string; level: string }): winston.Logger =>
             })} ${info.level.toLocaleUpperCase()}: ${info.message}`
         )
       }),
-      new winston.transports.File({
+      new marley.transports.File({
         filename: `./src/logs/${input.logName}/${input.logName}-All.log`,
         level: 'silly',
-        format: winston.format.printf(
+        format: marley.format.printf(
           info =>
             `${new Date(info.timestamp).toLocaleDateString('tr-Tr', {
               year: 'numeric',
@@ -89,8 +89,8 @@ const wLogger = (input: { logName: string; level: string }): winston.Logger =>
         )
       }),
 
-      new winston.transports.File({
-        format: winston.format.printf(
+      new marley.transports.File({
+        format: marley.format.printf(
           info =>
             `${new Date(info.timestamp).toLocaleDateString('tr-Tr', {
               year: 'numeric',

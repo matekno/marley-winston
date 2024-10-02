@@ -1,12 +1,12 @@
 'use strict';
 
-const winston = require('../');
+const marley = require('../');
 
-const logger = module.exports = winston.createLogger({
-  transports: [new winston.transports.Console()],
-  format: winston.format.combine(
-    winston.format.colorize({ all: true }),
-    winston.format.simple()
+const logger = module.exports = marley.createLogger({
+  transports: [new marley.transports.Console()],
+  format: marley.format.combine(
+    marley.format.colorize({ all: true }),
+    marley.format.simple()
   )
 });
 

@@ -1,6 +1,6 @@
 'use strict';
 
-const winston = require('../');
+const marley = require('../');
 
 console.info(new RegExp('a'));
 // prints "/a/"
@@ -8,5 +8,5 @@ console.info(new RegExp('a'));
 //
 // TODO: THIS IS BROKEN & MUST BE FIXED BEFORE 3.0?
 //
-winston.info(new RegExp('a'));
+marley.info(new RegExp('a'));
 // prints "info: /a/"

@@ -1,6 +1,6 @@
 'use strict';
 
-const winston = require('../');
+const marley = require('../');
 
 /*
  * Simple string mask. For example purposes only.
@@ -15,7 +15,7 @@ function maskCardNumbers(num) {
 }
 
 // Define the format that mutates the info object.
-const maskFormat = winston.format(info => {
+const maskFormat = marley.format(info => {
   // You can CHANGE existing property values
   if (info.creditCard) {
     info.creditCard = maskCardNumbers(info.creditCard);
@@ -28,17 +28,17 @@ const maskFormat = winston.format(info => {
 });
 
 // Then combine the format with other formats and make a logger
-const logger = winston.createLogger({
-  format: winston.format.combine(
+const logger = marley.createLogger({
+  format: marley.format.combine(
     //
     // Order is important here, the formats are called in the
     // order they are passed to combine.
     //
     maskFormat(),
-    winston.format.json()
+    marley.format.json()
   ),
   transports: [
-    new winston.transports.Console()
+    new marley.transports.Console()
   ]
 });
 

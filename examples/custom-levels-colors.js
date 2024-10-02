@@ -1,6 +1,6 @@
 'use strict';
 
-const winston = require('../lib/winston');
+const marley = require('../lib/marley');
 
 //
 // Logging levels
@@ -28,16 +28,16 @@ const config = {
   }
 };
 
-winston.addColors(config.colors);
+marley.addColors(config.colors);
 
-const logger = module.exports = winston.createLogger({
+const logger = module.exports = marley.createLogger({
   levels: config.levels,
-  format: winston.format.combine(
-    winston.format.colorize(),
-    winston.format.simple()
+  format: marley.format.combine(
+    marley.format.colorize(),
+    marley.format.simple()
   ),
   transports: [
-    new winston.transports.Console()
+    new marley.transports.Console()
   ],
   level: 'custom'
 });

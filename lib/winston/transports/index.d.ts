@@ -1,13 +1,13 @@
-// Type definitions for winston 3.0
-// Project: https://github.com/winstonjs/winston
+// Type definitions for marley 3.0
+// Project: https://github.com/marleyjs/marley
 
 /// <reference types="node" />
 
 import { Agent } from 'http';
 
-import * as Transport from 'winston-transport';
+import * as Transport from 'marley-transport';
 
-declare namespace winston {
+declare namespace marley {
   interface ConsoleTransportOptions extends Transport.TransportStreamOptions {
     consoleWarnLevels?: string[];
     stderrLevels?: string[];
@@ -113,5 +113,5 @@ declare namespace winston {
   }
 }
 
-declare const winston: winston.Transports;
-export = winston;
+declare const marley: marley.Transports;
+export = marley;

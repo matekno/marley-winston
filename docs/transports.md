@@ -1,28 +1,28 @@
-# Winston Transports
+# Marley Transports
 
-In `winston` a transport is essentially a storage device for your logs. Each
-instance of a winston logger can have multiple transports configured at
+In `marley` a transport is essentially a storage device for your logs. Each
+instance of a marley logger can have multiple transports configured at
 different levels. For example, one may want error logs to be stored in a
 persistent remote location (like a database), but all logs output to the
 console or a local file.
 
-There are several [core transports](#built-in-to-winston) included in `winston`
+There are several [core transports](#built-in-to-marley) included in `marley`
 that leverage the built-in networking and file I/O offered by Node.js core. In
-addition, there are transports which are [actively supported by winston
-contributors](#maintained-by-winston-contributors). And last (but not least)
+addition, there are transports which are [actively supported by marley
+contributors](#maintained-by-marley-contributors). And last (but not least)
 there are additional transports written by
 [members of the community](#community-transports).
 
-> Additionally there are transports previously maintained by winston
+> Additionally there are transports previously maintained by marley
 > contributors that are [looking for maintainers](#looking-for-maintainers).
 
-* **[Built-in to winston](#built-in-to-winston)**
+* **[Built-in to marley](#built-in-to-marley)**
   * [Console](#console-transport)
   * [File](#file-transport)
   * [Http](#http-transport)
   * [Stream](#stream-transport)
 
-* **[Maintained by winston contributors](#maintained-by-winston-contributors)**
+* **[Maintained by marley contributors](#maintained-by-marley-contributors)**
   * [DailyRotateFile](#dailyrotatefile-transport)
   * [MongoDB](#mongodb-transport)
   * [Syslog](#syslog-transport)
@@ -71,9 +71,9 @@ there are additional transports written by
   * [Redis](#redis-transport)
   * [Riak](#riak-transport)
 
-## Built-in to winston
+## Built-in to marley
 
-There are several core transports included in `winston`, which leverage the built-in networking and file I/O offered by Node.js core.
+There are several core transports included in `marley`, which leverage the built-in networking and file I/O offered by Node.js core.
 
 * [Console](#console-transport)
 * [File](#file-transport)
@@ -83,7 +83,7 @@ There are several core transports included in `winston`, which leverage the buil
 ### Console Transport
 
 ``` js
-logger.add(new winston.transports.Console(options));
+logger.add(new marley.transports.Console(options));
 ```
 
 The Console transport takes a few simple options:
@@ -96,7 +96,7 @@ The Console transport takes a few simple options:
 
 ### File Transport
 ``` js
-logger.add(new winston.transports.File(options));
+logger.add(new marley.transports.File(options));
 ```
 
 The File transport supports a variety of file writing options. If you are
@@ -118,10 +118,10 @@ looking for daily log rotation see [DailyRotateFile](#dailyrotatefile-transport)
 ### Http Transport
 
 ``` js
-logger.add(new winston.transports.Http(options));
+logger.add(new marley.transports.Http(options));
 ```
 
-The `Http` transport is a generic way to log, query, and stream logs from an arbitrary Http endpoint, preferably [winstond][1]. It takes options that are passed to the node.js `http` or `https` request:
+The `Http` transport is a generic way to log, query, and stream logs from an arbitrary Http endpoint, preferably [marleyd][1]. It takes options that are passed to the node.js `http` or `https` request:
 
 * __host:__ (Default: **localhost**) Remote host of the HTTP logging endpoint
 * __port:__ (Default: **80 or 443**) Remote port of the HTTP logging endpoint
@@ -135,7 +135,7 @@ The `Http` transport is a generic way to log, query, and stream logs from an arb
 ### Stream Transport
 
 ``` js
-logger.add(new winston.transports.Stream({
+logger.add(new marley.transports.Stream({
   stream: fs.createWriteStream('/dev/null')
   /* other options */
 }));
@@ -150,10 +150,10 @@ The Stream transport takes a few simple options:
 * __silent:__ Boolean flag indicating whether to suppress output (default false).
 * __eol:__ Line-ending character to use. (default: `os.EOL`).
 
-## Maintained by winston contributors
+## Maintained by marley contributors
 
-Starting with `winston@0.3.0` an effort was made to remove any transport which added additional dependencies to `winston`. At the time there were several transports already in `winston` which will have slowly waned in usage. The
-following transports are **actively maintained by members of the winston Github
+Starting with `marley@0.3.0` an effort was made to remove any transport which added additional dependencies to `marley`. At the time there were several transports already in `marley` which will have slowly waned in usage. The
+following transports are **actively maintained by members of the marley Github
 organization.**
 
 * [MongoDB](#mongodb-transport)
@@ -162,18 +162,18 @@ organization.**
 
 ### MongoDB Transport
 
-As of `winston@0.3.0` the MongoDB transport has been broken out into a new module: [winston-mongodb][14]. Using it is just as easy:
+As of `marley@0.3.0` the MongoDB transport has been broken out into a new module: [marley-mongodb][14]. Using it is just as easy:
 
 ``` js
-const winston = require('winston');
+const marley = require('marley');
 
 /**
- * Requiring `winston-mongodb` will expose
- * `winston.transports.MongoDB`
+ * Requiring `marley-mongodb` will expose
+ * `marley.transports.MongoDB`
  */
-require('winston-mongodb');
+require('marley-mongodb');
 
-logger.add(new winston.transports.MongoDB(options));
+logger.add(new marley.transports.MongoDB(options));
 ```
 
 The MongoDB transport takes the following options. 'db' is required:
@@ -197,7 +197,7 @@ supply a username and password it will not use MongoDB authentication.
 * __label:__ Label stored with entry object if defined.
 * __name:__ Transport instance identifier. Useful if you need to create multiple
 MongoDB transports.
-* __capped:__ In case this property is true, winston-mongodb will try to create
+* __capped:__ In case this property is true, marley-mongodb will try to create
 new log collection as capped, defaults to false.
 * __cappedSize:__ Size of logs capped collection in bytes, defaults to 10000000.
 * __cappedMax:__ Size of logs capped collection in number of documents.
@@ -208,33 +208,33 @@ initialization. Works only if __db__ is a string. Defaults to false.
 *Metadata:* Logged as a native JSON object in 'meta' property.
 
 *Logging unhandled exceptions:* For logging unhandled exceptions specify
-winston-mongodb as `handleExceptions` logger according to winston documentation.
+marley-mongodb as `handleExceptions` logger according to marley documentation.
 
 ### DailyRotateFile Transport
 
-See [winston-dailyrotatefile](https://github.com/winstonjs/winston-daily-rotate-file).
+See [marley-dailyrotatefile](https://github.com/marleyjs/marley-daily-rotate-file).
 
 ### Syslog Transport
 
-See [winston-syslog](https://github.com/winstonjs/winston-syslog).
+See [marley-syslog](https://github.com/marleyjs/marley-syslog).
 
 ## Community Transports
 
-The community has truly embraced `winston`; there are over **23** winston transports and over half of them are maintained by authors external to the winston core team. If you want to check them all out, just search `npm`:
+The community has truly embraced `marley`; there are over **23** marley transports and over half of them are maintained by authors external to the marley core team. If you want to check them all out, just search `npm`:
 
 ``` bash
-  $ npm search winston
+  $ npm search marley
 ```
 
 **If you have an issue using one of these modules you should contact the module author directly**
 
 ### Airbrake Transport
 
-[winston-airbrake2][22] is a transport for winston that sends your logs to Airbrake.io.
+[marley-airbrake2][22] is a transport for marley that sends your logs to Airbrake.io.
 
 ``` js
-const winston = require('winston');
-const { Airbrake } = require('winston-airbrake2');
+const marley = require('marley');
+const { Airbrake } = require('marley-airbrake2');
 logger.add(new Airbrake(options));
 ```
 
@@ -253,11 +253,11 @@ The Airbrake transport utilises the node-airbrake module to send logs to the Air
 
 ### Amazon CloudWatch Transport
 
-The [winston-aws-cloudwatch][25] transport relays your log messages to Amazon CloudWatch.
+The [marley-aws-cloudwatch][25] transport relays your log messages to Amazon CloudWatch.
 
 ```js
-const winston = require('winston');
-const AwsCloudWatch = require('winston-aws-cloudwatch');
+const marley = require('marley');
+const AwsCloudWatch = require('marley-aws-cloudwatch');
 
 logger.add(new AwsCloudWatch(options));
 ```
@@ -268,14 +268,14 @@ Options:
 * __logStreamName:__ The name of the CloudWatch log stream to which to log. *[required]*
 * __awsConfig:__ An object containing your `accessKeyId`, `secretAccessKey`, `region`, etc.
 
-Alternatively, you may be interested in [winston-cloudwatch][26].
+Alternatively, you may be interested in [marley-cloudwatch][26].
 
 ### Amazon DynamoDB Transport
-The [winston-dynamodb][36] transport uses Amazon's DynamoDB as a sink for log messages. You can take advantage of the various authentication methods supports by Amazon's aws-sdk module. See [Configuring the SDK in Node.js](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html).
+The [marley-dynamodb][36] transport uses Amazon's DynamoDB as a sink for log messages. You can take advantage of the various authentication methods supports by Amazon's aws-sdk module. See [Configuring the SDK in Node.js](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html).
 
 ``` js
-const winston = require('winston');
-const { DynamoDB } = require('winston-dynamodb');
+const marley = require('marley');
+const { DynamoDB } = require('marley-dynamodb');
 
 logger.add(new DynamoDB(options));
 ```
@@ -289,7 +289,7 @@ Options:
 
 To Configure using environment authentication:
 ``` js
-logger.add(new winston.transports.DynamoDB({
+logger.add(new marley.transports.DynamoDB({
   useEnvironment: true,
   tableName: 'log'
 }));
@@ -299,11 +299,11 @@ Also supports callbacks for completion when the DynamoDB putItem has been comple
 
 ### Amazon Kinesis Firehose Transport
 
-The [winston-firehose][28] transport relays your log messages to Amazon Kinesis Firehose.
+The [marley-firehose][28] transport relays your log messages to Amazon Kinesis Firehose.
 
 ```js
-const winston = require('winston');
-const WFirehose = require('winston-firehose');
+const marley = require('marley');
+const WFirehose = require('marley-firehose');
 
 logger.add(new WFirehose(options));
 ```
@@ -315,11 +315,11 @@ Options:
 
 ### Amazon SNS (Simple Notification System) Transport
 
-The [winston-sns][18] transport uses amazon SNS to send emails, texts, or a bunch of other notifications. Since this transport uses the Amazon AWS SDK for JavaScript, you can take advantage of the various methods of authentication found in Amazon's [Configuring the SDK in Node.js](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html) document.
+The [marley-sns][18] transport uses amazon SNS to send emails, texts, or a bunch of other notifications. Since this transport uses the Amazon AWS SDK for JavaScript, you can take advantage of the various methods of authentication found in Amazon's [Configuring the SDK in Node.js](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html) document.
 
 ``` js
-const winston = require('winston');
-const SnsTransport = require('winston-sns');
+const marley = require('marley');
+const SnsTransport = require('marley-sns');
 
 logger.add(new SnsTransport(options));
 ```
@@ -331,7 +331,7 @@ Options:
 * __aws_key:__ Your Amazon Web Services Key.
 * __aws_secret:__ Your Amazon Web Services Secret.
 * __region:__ AWS Region to use. Can be one of: `us-east-1`,`us-west-1`,`eu-west-1`,`ap-southeast-1`,`ap-northeast-1`,`us-gov-west-1`,`sa-east-1`. (default: `us-east-1`)
-* __subject:__ Subject for notifications. Uses placeholders for level (%l), error message (%e), and metadata (%m). (default: "Winston Error Report")
+* __subject:__ Subject for notifications. Uses placeholders for level (%l), error message (%e), and metadata (%m). (default: "Marley Error Report")
 * __message:__ Message of notifications. Uses placeholders for level (%l), error message (%e), and metadata (%m). (default: "Level '%l' Error:\n%e\n\nMetadata:\n%m")
 * __level:__ lowest level this transport will log. (default: `info`)
 * __json:__ use json instead of a prettier (human friendly) string for meta information in the notification. (default: `false`)
@@ -339,10 +339,10 @@ Options:
 
 ### Azure Table
 
-[winston-azuretable][21] is a Azure Table transport:
+[marley-azuretable][21] is a Azure Table transport:
 
 ``` js
-const { AzureLogger } = require('winston-azuretable');
+const { AzureLogger } = require('marley-azuretable');
 logger.add(new AzureLogger(options));
 ```
 
@@ -358,10 +358,10 @@ The Azure Table transport connects to an Azure Storage Account using the followi
 
 ### Cassandra Transport
 
-[winston-cassandra][20] is a Cassandra transport:
+[marley-cassandra][20] is a Cassandra transport:
 
 ``` js
-const Cassandra = require('winston-cassandra').Cassandra;
+const Cassandra = require('marley-cassandra').Cassandra;
 logger.add(new Cassandra(options));
 ```
 
@@ -380,18 +380,18 @@ Array of strings containing the hosts, for example `['host1', 'host2']` (require
 
 ### Cisco Spark Transport
 
-[winston-spark][31] is a transport for [Cisco Spark](https://www.ciscospark.com/)
+[marley-spark][31] is a transport for [Cisco Spark](https://www.ciscospark.com/)
 
 ``` js
-const winston = require('winston');
-require('winston-spark');
+const marley = require('marley');
+require('marley-spark');
 
 const options = {
   accessToken: '***Your Spark Access Token***',
   roomId: '***Spark Room Id***'
 };
 
-logger.add(new winston.transports.SparkLogger(options));
+logger.add(new marley.transports.SparkLogger(options));
 ```
 
 Valid Options are as the following:
@@ -401,12 +401,12 @@ Valid Options are as the following:
 * __hideMeta__ Hide MetaData (default: false)
 
 ### Cloudant
-[winston-clodant][34] is a transport for Cloudant NoSQL Db.
+[marley-clodant][34] is a transport for Cloudant NoSQL Db.
 
 ```js
-const winston = require('winston');
-const WinstonCloudant = require('winston-cloudant');
-logger.add(new WinstonCloudant(options));
+const marley = require('marley');
+const MarleyCloudant = require('marley-cloudant');
+logger.add(new MarleyCloudant(options));
 ```
 
 The Cloudant transport takes the following options:
@@ -419,19 +419,19 @@ The Cloudant transport takes the following options:
     logstash    : Write logs in logstash format
 
 ### Datadog Transport
-[datadog-winston][38] is a transport to ship your logs to datadog.
+[datadog-marley][38] is a transport to ship your logs to datadog.
 
 ```javascript
-var winston = require('winston')
-var DatadogWinston = require('datadog-winston')
+var marley = require('marley')
+var DatadogMarley = require('datadog-marley')
 
-var logger = winston.createLogger({
+var logger = marley.createLogger({
   // Whatever options you need
-  // Refer https://github.com/winstonjs/winston#creating-your-own-logger
+  // Refer https://github.com/marleyjs/marley#creating-your-own-logger
 })
 
 logger.add(
-  new DatadogWinston({
+  new DatadogMarley({
     apiKey: 'super_secret_datadog_api_key',
     hostname: 'my_machine',
     service: 'super_service',
@@ -449,16 +449,16 @@ Options:
 * __ddtags__: Metadata associated with the logs
 
 ### Google BigQuery
-[winston-bigquery][42] is a transport for Google BigQuery.
+[marley-bigquery][42] is a transport for Google BigQuery.
 
 ```js
-import {WinstonBigQuery} from 'winston-bigquery';
-import winston, {format} from 'winston';
+import {MarleyBigQuery} from 'marley-bigquery';
+import marley, {format} from 'marley';
 
-const logger = winston.createLogger({
+const logger = marley.createLogger({
 	transports: [
-		new WinstonBigQuery({
-			tableId: 'winston_logs',
+		new MarleyBigQuery({
+			tableId: 'marley_logs',
 			datasetId: 'logs'
 		})
 	]
@@ -476,11 +476,11 @@ read more on the topic on [github][42] or [npmjs.com][43]
 
 ### Google Stackdriver Transport
 
-[@google-cloud/logging-winston][29] provides a transport to relay your log messages to [Stackdriver Logging][30].
+[@google-cloud/logging-marley][29] provides a transport to relay your log messages to [Stackdriver Logging][30].
 
 ```js
-const winston = require('winston');
-const Stackdriver = require('@google-cloud/logging-winston');
+const marley = require('marley');
+const Stackdriver = require('@google-cloud/logging-marley');
 logger.add(new Stackdriver({
   projectId: 'your-project-id',
   keyFilename: '/path/to/keyfile.json'
@@ -489,11 +489,11 @@ logger.add(new Stackdriver({
 
 ### Graylog2 Transport
 
-[winston-graylog2][19] is a Graylog2 transport:
+[marley-graylog2][19] is a Graylog2 transport:
 
 ``` js
-const winston = require('winston');
-const Graylog2 = require('winston-graylog2');
+const marley = require('marley');
+const Graylog2 = require('marley-graylog2');
 logger.add(new Graylog2(options));
 ```
 
@@ -516,7 +516,7 @@ The Graylog2 transport connects to a Graylog2 server over UDP using the followin
 Log to Elasticsearch in a logstash-like format and
 leverage Kibana to browse your logs.
 
-See: https://github.com/vanthome/winston-elasticsearch.
+See: https://github.com/vanthome/marley-elasticsearch.
 
 ### FastFileRotate Transport
 
@@ -524,9 +524,9 @@ See: https://github.com/vanthome/winston-elasticsearch.
 
 ```js
 const FileRotateTransport = require('fast-file-rotate');
-const winston = require('winston');
+const marley = require('marley');
 
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
     new FileRotateTransport({
       fileName: __dirname + '/console%DATE%.log'
@@ -537,13 +537,13 @@ const logger = winston.createLogger({
 
 ### Humio Transport
 
-[humio-winston][44] is a transport for sending logs to Humio:
+[humio-marley][44] is a transport for sending logs to Humio:
 
 ``` js
-const winston = require('winston');
-const HumioTransport = require('humio-winston');
+const marley = require('marley');
+const HumioTransport = require('humio-marley');
 
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
     new HumioTransport({
       ingestToken: '<YOUR HUMIO INGEST TOKEN>',
@@ -554,12 +554,12 @@ const logger = winston.createLogger({
 
 ### LogDNA Transport
 
-[LogDNA Winston][37] is a transport for being able to forward the logs to [LogDNA](https://logdna.com/):
+[LogDNA Marley][37] is a transport for being able to forward the logs to [LogDNA](https://logdna.com/):
 
 ``` js
-const logdnaWinston = require('logdna-winston');
-const winston = require('winston');
-const logger = winston.createLogger({});
+const logdnaMarley = require('logdna-marley');
+const marley = require('marley');
+const logger = marley.createLogger({});
 const options = {
     key: apikey, // the only field required
     hostname: myHostname,
@@ -573,37 +573,37 @@ const options = {
 // Only add this line in order to track exceptions
 options.handleExceptions = true;
 
-logger.add(new logdnaWinston(options));
+logger.add(new logdnaMarley(options));
 
 let meta = {
     data:'Some information'
 };
-logger.log('info', 'Log from LogDNA Winston', meta);
+logger.log('info', 'Log from LogDNA Marley', meta);
 ```
 
 ### Logzio Transport
 
-You can download the logzio transport here : [https://github.com/logzio/winston-logzio](https://github.com/logzio/winston-logzio)
+You can download the logzio transport here : [https://github.com/logzio/marley-logzio](https://github.com/logzio/marley-logzio)
 
 *Basic Usage*
 ```js
-const winston = require('winston');
-const Logzio = require('winston-logzio');
+const marley = require('marley');
+const Logzio = require('marley-logzio');
 
 logger.add(new Logzio({
   token: '__YOUR_API_TOKEN__'
 }));
 ```
 
-For more information about how to configure the logzio transport, view the README.md in the [winston-logzio repo](https://github.com/logzio/winston-logzio).
+For more information about how to configure the logzio transport, view the README.md in the [marley-logzio repo](https://github.com/logzio/marley-logzio).
 
 ### Logsene Transport
 
-[winston-logsene][24] transport for Elasticsearch bulk indexing via HTTPS to Logsene:
+[marley-logsene][24] transport for Elasticsearch bulk indexing via HTTPS to Logsene:
 
 ``` js
-const winston = require('winston');
-const Logsene = require('winston-logsene');
+const marley = require('marley');
+const Logsene = require('marley-logsene');
 
 logger.add(new Logsene({
   token: process.env.LOGSENE_TOKEN
@@ -622,17 +622,17 @@ Options:
 
 ### Mail Transport
 
-The [winston-mail][16] is an email transport:
+The [marley-mail][16] is an email transport:
 
 ``` js
-const { Mail } = require('winston-mail');
+const { Mail } = require('marley-mail');
 logger.add(new Mail(options));
 ```
 
 The Mail transport uses [node-mail][17] behind the scenes.  Options are the following, `to` and `host` are required:
 
 * __to:__ The address(es) you want to send to. *[required]*
-* __from:__ The address you want to send from. (default: `winston@[server-host-name]`)
+* __from:__ The address you want to send from. (default: `marley@[server-host-name]`)
 * __host:__ SMTP server hostname
 * __port:__ SMTP port (default: 587 or 25)
 * __secure:__ Use secure
@@ -645,7 +645,7 @@ The Mail transport uses [node-mail][17] behind the scenes.  Options are the foll
 
 ### MySQL Transport
 
-[winston-mysql](https://github.com/charles-zh/winston-mysql) is a MySQL transport for Winston.
+[marley-mysql](https://github.com/charles-zh/marley-mysql) is a MySQL transport for Marley.
 
 Create a table in your database first:
 
@@ -661,10 +661,10 @@ Create a table in your database first:
 
 > You can also specify `meta` to be a `JSON` field on MySQL 5.7+, i.e., ``meta` JSON NOT NULL`, which is helfpul for searching and parsing.
 
-Configure Winston with the transport:
+Configure Marley with the transport:
 
 ```javascript
-import MySQLTransport from 'winston-mysql';
+import MySQLTransport from 'marley-mysql';
 
 const options = {
     host: '${MYSQL_HOST}',
@@ -674,13 +674,13 @@ const options = {
     table: 'sys_logs_default'
 };
 
-const logger = winston.createLogger({
+const logger = marley.createLogger({
     level: 'debug',
-    format: winston.format.json(),
+    format: marley.format.json(),
     defaultMeta: { service: 'user-service' },
     transports: [
-        new winston.transports.Console({
-            format: winston.format.simple(),
+        new marley.transports.Console({
+            format: marley.format.simple(),
         }),
         new MySQLTransport(options),
     ],
@@ -694,31 +694,31 @@ logger.info(msg, {message: msg, type: 'demo'});
 
 ### New Relic Agent Transport
 
-[winston-newrelic-agent-transport][47] is a New Relic transport that leverages the New Relic agent:
+[marley-newrelic-agent-transport][47] is a New Relic transport that leverages the New Relic agent:
 
 ``` js
-import winston from 'winston'
-import NewrelicTransport from 'winston-newrelic-agent-transport'
+import marley from 'marley'
+import NewrelicTransport from 'marley-newrelic-agent-transport'
 
-const logger = winston.createLogger()
+const logger = marley.createLogger()
 
 const options = {}
 logger.add(new NewrelicTransport(options))
 ```
 
-The New Relic agent typically automatically forwards Winston logs to New Relic when using CommonJS. With CommonJS no additional transport should be needed. However, when using ECMAScript modules, the automatic forwarding of logs can with certain coding patterns not work. If the New Relic agent is not automatically forwarding your logs, this transport provides a solution.
+The New Relic agent typically automatically forwards Marley logs to New Relic when using CommonJS. With CommonJS no additional transport should be needed. However, when using ECMAScript modules, the automatic forwarding of logs can with certain coding patterns not work. If the New Relic agent is not automatically forwarding your logs, this transport provides a solution.
 
 Options:
 
-* __level__ (optional): The Winston logging level to use as the maximum level of messages that the transport will log.
-* __rejectCriteria__ (optional): The rejectCriteria option allows you to specify an array of regexes that will be matched against either the Winston info object or log message to determine whether or not a log message should be rejected and not logged to New Relic.
+* __level__ (optional): The Marley logging level to use as the maximum level of messages that the transport will log.
+* __rejectCriteria__ (optional): The rejectCriteria option allows you to specify an array of regexes that will be matched against either the Marley info object or log message to determine whether or not a log message should be rejected and not logged to New Relic.
 
 ### Papertrail Transport
 
-[winston-papertrail][27] is a Papertrail transport:
+[marley-papertrail][27] is a Papertrail transport:
 
 ``` js
-const { Papertrail } = require('winston-papertrail');
+const { Papertrail } = require('marley-papertrail');
 logger.add(new Papertrail(options));
 ```
 
@@ -735,12 +735,12 @@ The Papertrail transport connects to a [PapertrailApp log destination](https://p
 
 ### Parseable Transport
 
-[Parseable](https://parseable.com/) is an open source, general purpose log analytics system. [Parseable-Winston](https://github.com/jybleau/parseable-node-loggers/tree/main/packages/winston#parseable-winston) is a Parseable transport for Winston.  
+[Parseable](https://parseable.com/) is an open source, general purpose log analytics system. [Parseable-Marley](https://github.com/jybleau/parseable-node-loggers/tree/main/packages/marley#parseable-marley) is a Parseable transport for Marley.  
 
 ```js
 // Using cjs
-const { ParseableTransport } = require('parseable-winston')
-const winston = require('winston')
+const { ParseableTransport } = require('parseable-marley')
+const marley = require('marley')
 
 const parseable = new ParseableTransport({
   url: process.env.PARSEABLE_LOGS_URL, // Ex: 'https://parsable.myserver.local/api/v1/logstream'
@@ -750,8 +750,8 @@ const parseable = new ParseableTransport({
   tags: { tag1: 'tagValue' } // optional tags to be added with each ingestion
 })
 
-const logger = winston.createLogger({
-  levels: winston.config.syslog.levels,
+const logger = marley.createLogger({
+  levels: marley.config.syslog.levels,
   transports: [parseable],
   defaultMeta: { instance: 'app', hostname: 'app1' }
 })
@@ -762,13 +762,13 @@ logger.warning('The goggles do nothing', { userid: 1 })
 
 ### PostgresQL Transport
 
-[@pauleliet/winston-pg-native](https://github.com/petpano/winston-pg-native) is a PostgresQL transport supporting Winston 3.X.
+[@pauleliet/marley-pg-native](https://github.com/petpano/marley-pg-native) is a PostgresQL transport supporting Marley 3.X.
 
 ### Pusher Transport
-[winston-pusher](https://github.com/meletisf/winston-pusher) is a Pusher transport.
+[marley-pusher](https://github.com/meletisf/marley-pusher) is a Pusher transport.
 
 ```js
-const { PusherLogger } = require('winston-pusher');
+const { PusherLogger } = require('marley-pusher');
 logger.add(new PusherLogger(options));
 ```
 
@@ -784,10 +784,10 @@ This transport sends the logs to a Pusher app for real time processing and it us
 * __event__ The event name (default: default)
 
 ### Sentry Transport
-[winston-transport-sentry-node][41] is a transport for [Sentry](https://sentry.io/) uses [@sentry/node](https://www.npmjs.com/package/@sentry/node).
+[marley-transport-sentry-node][41] is a transport for [Sentry](https://sentry.io/) uses [@sentry/node](https://www.npmjs.com/package/@sentry/node).
 
 ```js
-const Sentry = require('winston-transport-sentry-node').default;
+const Sentry = require('marley-transport-sentry-node').default;
 logger.add(new Sentry({
   sentry: {
     dsn: 'https://******@sentry.io/12345',
@@ -810,10 +810,10 @@ This transport takes the following options:
 
 ### Seq Transport
 
-[winston-seq][45] is a transport that sends structured log events to [Seq](https://datalust.co/seq).
+[marley-seq][45] is a transport that sends structured log events to [Seq](https://datalust.co/seq).
 
 ```js
-const { SeqTransport } = require('@datalust/winston-seq');
+const { SeqTransport } = require('@datalust/marley-seq');
 logger.add(new SeqTransport({
   serverUrl: "https://your-seq-server:5341",
   apiKey: "your-api-key",
@@ -829,10 +829,10 @@ logger.add(new SeqTransport({
 
 ### SimpleDB Transport
 
-The [winston-simpledb][15] transport is just as easy:
+The [marley-simpledb][15] transport is just as easy:
 
 ``` js
-const SimpleDB = require('winston-simpledb').SimpleDB;
+const SimpleDB = require('marley-simpledb').SimpleDB;
 logger.add(new SimpleDB(options));
 ```
 
@@ -848,13 +848,13 @@ The SimpleDB transport takes the following options. All items marked with an ast
 *Metadata:* Logged as a native JSON object to the 'meta' attribute of the item.
 
 ### Slack Transport
-[winston-slack-webhook-transport][39] is a transport that sends all log messages to the Slack chat service.
+[marley-slack-webhook-transport][39] is a transport that sends all log messages to the Slack chat service.
 
 ```js
-const winston = require('winston');
-const SlackHook = require('winston-slack-webhook-transport');
+const marley = require('marley');
+const SlackHook = require('marley-slack-webhook-transport');
 
-const logger = winston.createLogger({
+const logger = marley.createLogger({
 	level: 'info',
 	transports: [
 		new SlackHook({
@@ -873,7 +873,7 @@ This transport takes the following options:
 * __username__ - Username to post message with.
 * __iconEmoji__ - Status icon to post message with. (interchangeable with __iconUrl__)
 * __iconUrl__ - Status icon to post message with. (interchangeable with __iconEmoji__)
-* __formatter__ - Custom function to format messages with. This function accepts the __info__ object ([see Winston documentation](https://github.com/winstonjs/winston/blob/master/README.md#streams-objectmode-and-info-objects)) and must return an object with at least one of the following three keys: __text__ (string), __attachments__ (array of [attachment objects](https://api.slack.com/docs/message-attachments)), __blocks__ (array of [layout block objects](https://api.slack.com/messaging/composing/layouts)). These will be used to structure the format of the logged Slack message. By default, messages will use the format of `[level]: [message]` with no attachments or layout blocks.
+* __formatter__ - Custom function to format messages with. This function accepts the __info__ object ([see Marley documentation](https://github.com/marleyjs/marley/blob/master/README.md#streams-objectmode-and-info-objects)) and must return an object with at least one of the following three keys: __text__ (string), __attachments__ (array of [attachment objects](https://api.slack.com/docs/message-attachments)), __blocks__ (array of [layout block objects](https://api.slack.com/messaging/composing/layouts)). These will be used to structure the format of the logged Slack message. By default, messages will use the format of `[level]: [message]` with no attachments or layout blocks.
 * __level__ - Level to log. Global settings will apply if this is blank.
 * __unfurlLinks__ - Enables or disables [link unfurling.](https://api.slack.com/docs/message-attachments#unfurling) (Default: false)
 * __unfurlMedia__ - Enables or disables [media unfurling.](https://api.slack.com/docs/message-link-unfurling) (Default: false)
@@ -881,10 +881,10 @@ This transport takes the following options:
 
 ### SQLite3 Transport
 
-The [winston-better-sqlite3][40] transport uses [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3).
+The [marley-better-sqlite3][40] transport uses [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3).
 
 ```js
-const wbs = require('winston-better-sqlite3');
+const wbs = require('marley-better-sqlite3');
 logger.add(new wbs({
 
     // path to the sqlite3 database file on the disk
@@ -896,11 +896,11 @@ logger.add(new wbs({
 ```
 
 ### Sumo Logic Transport
-[winston-sumologic-transport][32] is a transport for Sumo Logic
+[marley-sumologic-transport][32] is a transport for Sumo Logic
 
 ``` js
-const winston = require('winston');
-const { SumoLogic } = require('winston-sumologic-transport');
+const marley = require('marley');
+const { SumoLogic } = require('marley-sumologic-transport');
 
 logger.add(new SumoLogic(options));
 ```
@@ -909,20 +909,20 @@ Options:
 * __url__: The Sumo Logic HTTP collector URL
 
 ### SSE transport with KOA 2
-[winston-koa-sse](https://github.com/alexvictoor/winston-koa-sse) is a transport that leverages on Server Sent Event. With this transport you can use your browser console to view your server logs.
+[marley-koa-sse](https://github.com/alexvictoor/marley-koa-sse) is a transport that leverages on Server Sent Event. With this transport you can use your browser console to view your server logs.
 
 ### VS Code extension
 
-[winston-transport-vscode][48] is a transport for VS Code extension development.
+[marley-transport-vscode][48] is a transport for VS Code extension development.
 
 ```js
 const vscode = require('vscode');
-const winston = require('winston');
-const { OutputChannelTransport } = require('winston-transport-vscode');
+const marley = require('marley');
+const { OutputChannelTransport } = require('marley-transport-vscode');
 
 const outputChannel = vscode.window.createOutputChannel('My extension');
 
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [new OutputChannelTransport({ outputChannel })],
 });
 ```
@@ -931,13 +931,13 @@ The extension includes dedicated log levels and format for using with VS Code's
 LogOutputChannel.
 
 ```js
-const { LogOutputChannelTransport } = require('winston-transport-vscode');
+const { LogOutputChannelTransport } = require('marley-transport-vscode');
 
 const outputChannel = vscode.window.createOutputChannel('My extension', {
   log: true,
 });
 
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   levels: LogOutputChannelTransport.config.levels,
   format: LogOutputChannelTransport.format(),
   transports: [new LogOutputChannelTransport({ outputChannel })],
@@ -947,32 +947,32 @@ const logger = winston.createLogger({
 
 ### Worker Thread based async Console transport
 
-[winston-console-transport-in-worker][46]
+[marley-console-transport-in-worker][46]
 
 ```typescript
-import * as winston from 'winston';
-import { ConsoleTransportInWorker } from '@rpi1337/winston-console-transport-in-worker';
+import * as marley from 'marley';
+import { ConsoleTransportInWorker } from '@rpi1337/marley-console-transport-in-worker';
 
 ...
 
-export const logger: winston.Logger = winston.createLogger({
+export const logger: marley.Logger = marley.createLogger({
     format: combine(timestamp(), myFormat),
     level: Level.INFO,
     transports: [new ConsoleTransportInWorker()],
 });
 ```
 
-The `ConsoleTransportInWorker` is a subclass of `winston.transports.Console` therefore accepting the same options as the `Console` transport.
+The `ConsoleTransportInWorker` is a subclass of `marley.transports.Console` therefore accepting the same options as the `Console` transport.
 
 TypeScript supported.
 
 ### Winlog2 Transport
 
-[winston-winlog2][33] is a Windows Event log transport:
+[marley-winlog2][33] is a Windows Event log transport:
 
 ``` js
-const winston = require('winston');
-const Winlog2 = require('winston-winlog2');
+const marley = require('marley');
+const Winlog2 = require('marley-winlog2');
 logger.add(new Winlog2(options));
 ```
 
@@ -984,9 +984,9 @@ The winlog2 transport uses the following options:
 
 ## Looking for maintainers
 
-These transports are part of the `winston` Github organization but are
+These transports are part of the `marley` Github organization but are
 actively seeking new maintainers. Interested in getting involved? Open an
-issue on `winston` to get the conversation started!
+issue on `marley` to get the conversation started!
 
 * [CouchDB](#couchdb-transport)
 * [Loggly](#loggly-transport)
@@ -995,28 +995,28 @@ issue on `winston` to get the conversation started!
 
 ### CouchDB Transport
 
-_As of `winston@0.6.0` the CouchDB transport has been broken out into a new module: [winston-couchdb][2]._
+_As of `marley@0.6.0` the CouchDB transport has been broken out into a new module: [marley-couchdb][2]._
 
 ``` js
-const WinstonCouchDb = require('winston-couchdb');
-logger.add(new WinstonCouchdb(options));
+const MarleyCouchDb = require('marley-couchdb');
+logger.add(new MarleyCouchdb(options));
 ```
 
 The `Couchdb` will place your logs in a remote CouchDB database. It will also create a [Design Document][3], `_design/Logs` for later querying and streaming your logs from CouchDB. The transport takes the following options:
 
 * __host:__ (Default: **localhost**) Remote host of the HTTP logging endpoint
 * __port:__ (Default: **5984**) Remote port of the HTTP logging endpoint
-* __db:__ (Default: **winston**) Remote URI of the HTTP logging endpoint
+* __db:__ (Default: **marley**) Remote URI of the HTTP logging endpoint
 * __auth:__ (Default: **None**) An object representing the `username` and `password` for HTTP Basic Auth
 * __ssl:__ (Default: **false**) Value indicating if we should us HTTPS
 
 ### Loggly Transport
 
-_As of `winston@0.6.0` the Loggly transport has been broken out into a new module: [winston-loggly][5]._
+_As of `marley@0.6.0` the Loggly transport has been broken out into a new module: [marley-loggly][5]._
 
 ``` js
-const WinstonLoggly = require('winston-loggly');
-logger.add(new winston.transports.Loggly(options));
+const MarleyLoggly = require('marley-loggly');
+logger.add(new marley.transports.Loggly(options));
 ```
 
 The Loggly transport is based on [Nodejitsu's][6] [node-loggly][7] implementation of the [Loggly][8] API. If you haven't heard of Loggly before, you should probably read their [value proposition][9]. The Loggly transport takes the following options. Either 'inputToken' or 'inputName' is required:
@@ -1031,8 +1031,8 @@ The Loggly transport is based on [Nodejitsu's][6] [node-loggly][7] implementatio
 ### Redis Transport
 
 ``` js
-const WinstonRedis = require('winston-redis');
-logger.add(new WinstonRedis(options));
+const MarleyRedis = require('marley-redis');
+logger.add(new MarleyRedis(options));
 ```
 
 This transport accepts the options accepted by the [node-redis][4] client:
@@ -1044,15 +1044,15 @@ This transport accepts the options accepted by the [node-redis][4] client:
 In addition to these, the Redis transport also accepts the following options.
 
 * __length:__ (Default **200**) Number of log messages to store.
-* __container:__ (Default **winston**) Name of the Redis container you wish your logs to be in.
+* __container:__ (Default **marley**) Name of the Redis container you wish your logs to be in.
 * __channel:__ (Default **None**) Name of the Redis channel to stream logs from.
 
 ### Riak Transport
 
-_As of `winston@0.3.0` the Riak transport has been broken out into a new module: [winston-riak][11]._ Using it is just as easy:
+_As of `marley@0.3.0` the Riak transport has been broken out into a new module: [marley-riak][11]._ Using it is just as easy:
 
 ``` js
-const { Riak } = require('winston-riak');
+const { Riak } = require('marley-riak');
 logger.add(new Riak(options));
 ```
 
@@ -1077,55 +1077,55 @@ In addition to the options accepted by the [riak-js][12] [client][13], the Riak 
 
 ## Find more Transports
 
-There are more than 1000 packages on `npm` when [you search for] `winston`.
+There are more than 1000 packages on `npm` when [you search for] `marley`.
 That's why we say it's a logger for just about everything
 
-[you search for]: https://www.npmjs.com/search?q=winston
+[you search for]: https://www.npmjs.com/search?q=marley
 [0]: https://nodejs.org/api/stream.html#stream_class_stream_writable
-[1]: https://github.com/flatiron/winstond
-[2]: https://github.com/indexzero/winston-couchdb
+[1]: https://github.com/flatiron/marleyd
+[2]: https://github.com/indexzero/marley-couchdb
 [3]: http://guide.couchdb.org/draft/design.html
 [4]: https://github.com/mranney/node_redis
-[5]: https://github.com/indexzero/winston-loggly
+[5]: https://github.com/indexzero/marley-loggly
 [6]: http://nodejitsu.com
 [7]: https://github.com/nodejitsu/node-loggly
 [8]: http://loggly.com
 [9]: http://www.loggly.com/product/
 [10]: http://wiki.loggly.com/loggingfromcode
-[11]: https://github.com/indexzero/winston-riak
+[11]: https://github.com/indexzero/marley-riak
 [12]: http://riakjs.org
 [13]: https://github.com/frank06/riak-js/blob/master/src/http_client.coffee#L10
-[14]: http://github.com/indexzero/winston-mongodb
-[15]: http://github.com/appsattic/winston-simpledb
-[16]: http://github.com/wavded/winston-mail
+[14]: http://github.com/indexzero/marley-mongodb
+[15]: http://github.com/appsattic/marley-simpledb
+[16]: http://github.com/wavded/marley-mail
 [17]: https://github.com/weaver/node-mail
-[18]: https://github.com/jesseditson/winston-sns
-[19]: https://github.com/namshi/winston-graylog2
-[20]: https://github.com/jorgebay/winston-cassandra
-[21]: https://github.com/jpoon/winston-azuretable
-[22]: https://github.com/rickcraig/winston-airbrake2
-[24]: https://github.com/sematext/winston-logsene
-[25]: https://github.com/timdp/winston-aws-cloudwatch
-[26]: https://github.com/lazywithclass/winston-cloudwatch
-[27]: https://github.com/kenperkins/winston-papertrail
-[28]: https://github.com/pkallos/winston-firehose
-[29]: https://www.npmjs.com/package/@google-cloud/logging-winston
+[18]: https://github.com/jesseditson/marley-sns
+[19]: https://github.com/namshi/marley-graylog2
+[20]: https://github.com/jorgebay/marley-cassandra
+[21]: https://github.com/jpoon/marley-azuretable
+[22]: https://github.com/rickcraig/marley-airbrake2
+[24]: https://github.com/sematext/marley-logsene
+[25]: https://github.com/timdp/marley-aws-cloudwatch
+[26]: https://github.com/lazywithclass/marley-cloudwatch
+[27]: https://github.com/kenperkins/marley-papertrail
+[28]: https://github.com/pkallos/marley-firehose
+[29]: https://www.npmjs.com/package/@google-cloud/logging-marley
 [30]: https://cloud.google.com/logging/
-[31]: https://github.com/joelee/winston-spark
-[32]: https://github.com/avens19/winston-sumologic-transport
-[33]: https://github.com/peteward44/winston-winlog2
-[34]: https://github.com/hakanostrom/winston-cloudant
+[31]: https://github.com/joelee/marley-spark
+[32]: https://github.com/avens19/marley-sumologic-transport
+[33]: https://github.com/peteward44/marley-winlog2
+[34]: https://github.com/hakanostrom/marley-cloudant
 [35]: https://github.com/SerayaEryn/fast-file-rotate
-[36]: https://github.com/inspiredjw/winston-dynamodb
-[37]: https://github.com/logdna/logdna-winston
-[38]: https://github.com/itsfadnis/datadog-winston
-[39]: https://github.com/TheAppleFreak/winston-slack-webhook-transport
-[40]: https://github.com/punkish/winston-better-sqlite3
-[41]: https://github.com/aandrewww/winston-transport-sentry-node
-[42]: https://github.com/kaminskypavel/winston-bigquery
-[43]: https://www.npmjs.com/package/winston-bigquery
-[44]: https://github.com/Quintinity/humio-winston
-[45]: https://github.com/datalust/winston-seq
-[46]: https://github.com/arpad1337/winston-console-transport-in-worker
-[47]: https://github.com/kimnetics/winston-newrelic-agent-transport
-[48]: https://github.com/loderunner/winston-transport-vscode
+[36]: https://github.com/inspiredjw/marley-dynamodb
+[37]: https://github.com/logdna/logdna-marley
+[38]: https://github.com/itsfadnis/datadog-marley
+[39]: https://github.com/TheAppleFreak/marley-slack-webhook-transport
+[40]: https://github.com/punkish/marley-better-sqlite3
+[41]: https://github.com/aandrewww/marley-transport-sentry-node
+[42]: https://github.com/kaminskypavel/marley-bigquery
+[43]: https://www.npmjs.com/package/marley-bigquery
+[44]: https://github.com/Quintinity/humio-marley
+[45]: https://github.com/datalust/marley-seq
+[46]: https://github.com/arpad1337/marley-console-transport-in-worker
+[47]: https://github.com/kimnetics/marley-newrelic-agent-transport
+[48]: https://github.com/loderunner/marley-transport-vscode

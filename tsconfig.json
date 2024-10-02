@@ -19,7 +19,7 @@
   },
   "files": [
     "index.d.ts",
-    "lib/winston/config/index.d.ts",
-    "lib/winston/transports/index.d.ts"
+    "lib/marley/config/index.d.ts",
+    "lib/marley/transports/index.d.ts"
   ]
 }

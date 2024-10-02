@@ -1,22 +1,22 @@
 'use strict';
 
-const winston = require('../');
+const marley = require('../');
 
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   level: 'info',
-  format: winston.format.combine(
+  format: marley.format.combine(
     //
     // Notice that both arguments have been combined into a single
     // "info" object.
     //
-    winston.format(function (info, opts) {
+    marley.format(function (info, opts) {
       console.log(`{ reason: ${info.reason}, promise: ${info.promise} }`);
       return info;
     })(),
-    winston.format.json()
+    marley.format.json()
   ),
   transports: [
-    new winston.transports.Console()
+    new marley.transports.Console()
   ]
 });
 

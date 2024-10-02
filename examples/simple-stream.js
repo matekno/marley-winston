@@ -2,14 +2,14 @@
 
 const fs = require('fs');
 const path = require('path');
-const winston = require('../lib/winston');
+const marley = require('../lib/marley');
 
-const filePath = path.join(__dirname, 'winston.log');
+const filePath = path.join(__dirname, 'marley.log');
 const stream = fs.createWriteStream(filePath);
 
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
-    new winston.transports.Stream({ stream })
+    new marley.transports.Stream({ stream })
   ]
 });
 

@@ -1,5 +1,5 @@
 name: Have you encountered an issue?
-description: Report an issue with Winston.
+description: Report an issue with Marley.
 title: "[Bug]: "
 labels: ["Bug", "Needs Investigation"]
 body:
@@ -28,16 +28,16 @@ body:
       value: |
         ## Environment
   - type: input # Affected Version Input
-    id: winston-version
+    id: marley-version
     validations:
       required: true
     attributes:
-      label: What version of Winston presents the issue?
+      label: What version of Marley presents the issue?
       placeholder: v3.4.0
       description: >
         Can be found by running one of the following (depending on your package manager of choice):
-        - `npm list winston`
-        - `yarn list --pattern winston`
+        - `npm list marley`
+        - `yarn list --pattern marley`
   - type: input # Affected Version Input
     id: node-version
     validations:
@@ -49,7 +49,7 @@ body:
         Can be found by running the following: `node -v`
   - type: input # Last Known Working Version
     attributes:
-      label: If this worked in a previous version of Winston, which was it?
+      label: If this worked in a previous version of Marley, which was it?
       placeholder: v3.0.0
       description: >
         If known, otherwise please leave blank.

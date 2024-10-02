@@ -1,5 +1,5 @@
 name: Would you like to see a feature implemented?
-description: Request a new feature for Winston
+description: Request a new feature for Marley
 title: "[Feature Request]: "
 labels: ["Feature Request", "Needs Investigation"]
 body:

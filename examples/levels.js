@@ -1,15 +1,15 @@
 'use strict';
 
-const winston = require('../');
+const marley = require('../');
 
-const defaultLevels = winston.createLogger({
+const defaultLevels = marley.createLogger({
   level: 'silly',
-  format: winston.format.simple(),
-  transports: new winston.transports.Console()
+  format: marley.format.simple(),
+  transports: new marley.transports.Console()
 });
 
 function logAllLevels() {
-  Object.keys(winston.config.npm.levels).forEach(level => {
+  Object.keys(marley.config.npm.levels).forEach(level => {
     defaultLevels[level](`is logged when logger.level="${defaultLevels.level}"`);
   });
 }

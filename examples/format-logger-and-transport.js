@@ -1,6 +1,6 @@
 const fs = require('fs');
-const winston = require('../');
-const { createLogger, format, transports } = winston;
+const marley = require('../');
+const { createLogger, format, transports } = marley;
 
 const logger = createLogger({
   format: format.combine(

@@ -1,16 +1,16 @@
 'use strict';
 
-const winston = require('../');
+const marley = require('../');
 
-const logger = winston.createLogger({
-  format: winston.format.printf(info => {
+const logger = marley.createLogger({
+  format: marley.format.printf(info => {
     return JSON.stringify(info)
       .replace(/\{/g, '< wow ')
       .replace(/\:/g, ' such ')
       .replace(/\}/g, ' >')
   }),
   transports: [
-    new winston.transports.Console(),
+    new marley.transports.Console(),
   ]
 });
 

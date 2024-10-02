@@ -1,5 +1,5 @@
-const winston = require('../');
-let { format } = winston;
+const marley = require('../');
+let { format } = marley;
 
 /*
  * Simple helper for stringifying all remaining
@@ -14,8 +14,8 @@ function rest(info) {
   }));
 }
 
-let logger = winston.createLogger({
-  transports: [new winston.transports.Console({ level: 'info' })],
+let logger = marley.createLogger({
+  transports: [new marley.transports.Console({ level: 'info' })],
   format: format.combine(
     format.splat(),
     format.printf(info => `[${info.label}] ${info.message} ${rest(info)}`)

@@ -1,6 +1,6 @@
 'use strict';
 
-const winston = require('../');
+const marley = require('../');
 
 const myCustomLevels = {
   levels: {
@@ -17,11 +17,11 @@ const myCustomLevels = {
   }
 };
 
-const customLevelLogger = winston.createLogger({
+const customLevelLogger = marley.createLogger({
   level: 'foobar',
   levels: myCustomLevels.levels,
   transports: [
-    new winston.transports.Console()
+    new marley.transports.Console()
   ]
 });
 

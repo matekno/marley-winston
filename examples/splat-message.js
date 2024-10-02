@@ -1,18 +1,18 @@
-const winston = require('../');
+const marley = require('../');
 
 const loggers = {
-  splat: winston.createLogger({
+  splat: marley.createLogger({
     level: 'info',
-    format: winston.format.combine(
-      winston.format.splat(),
-      winston.format.simple()
+    format: marley.format.combine(
+      marley.format.splat(),
+      marley.format.simple()
     ),
-    transports: [new winston.transports.Console()],
+    transports: [new marley.transports.Console()],
   }),
-  simple: winston.createLogger({
+  simple: marley.createLogger({
     level: 'info',
-    format: winston.format.simple(),
-    transports: [new winston.transports.Console()],
+    format: marley.format.simple(),
+    transports: [new marley.transports.Console()],
   })
 };
 

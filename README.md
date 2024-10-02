@@ -1,34 +1,34 @@
-# winston
+# marley
 
 A logger for just about everything.
 
-[![Version npm](https://img.shields.io/npm/v/winston.svg?style=flat-square)](https://www.npmjs.com/package/winston)
-[![npm Downloads](https://img.shields.io/npm/dm/winston.svg?style=flat-square)](https://npmcharts.com/compare/winston?minimal=true)
-[![build status](https://github.com/winstonjs/winston/actions/workflows/ci.yml/badge.svg)](https://github.com/winstonjs/winston/actions/workflows/ci.yml)
-[![coverage status](https://coveralls.io/repos/github/winstonjs/winston/badge.svg?branch=master)](https://coveralls.io/github/winstonjs/winston?branch=master)
+[![Version npm](https://img.shields.io/npm/v/marley.svg?style=flat-square)](https://www.npmjs.com/package/marley)
+[![npm Downloads](https://img.shields.io/npm/dm/marley.svg?style=flat-square)](https://npmcharts.com/compare/marley?minimal=true)
+[![build status](https://github.com/marleyjs/marley/actions/workflows/ci.yml/badge.svg)](https://github.com/marleyjs/marley/actions/workflows/ci.yml)
+[![coverage status](https://coveralls.io/repos/github/marleyjs/marley/badge.svg?branch=master)](https://coveralls.io/github/marleyjs/marley?branch=master)
 
-[![NPM](https://nodei.co/npm/winston.png?downloads=true&downloadRank=true)](https://nodei.co/npm/winston/)
+[![NPM](https://nodei.co/npm/marley.png?downloads=true&downloadRank=true)](https://nodei.co/npm/marley/)
 
-## winston@3
+## marley@3
 
 See the [Upgrade Guide](UPGRADE-3.0.md) for more information. Bug reports and
 PRs welcome!
 
-## Looking for `winston@2.x` documentation?
+## Looking for `marley@2.x` documentation?
 
-Please note that the documentation below is for `winston@3`.
-[Read the `winston@2.x` documentation].
+Please note that the documentation below is for `marley@3`.
+[Read the `marley@2.x` documentation].
 
 ## Motivation
 
-`winston` is designed to be a simple and universal logging library with
+`marley` is designed to be a simple and universal logging library with
 support for multiple transports. A transport is essentially a storage device
-for your logs. Each `winston` logger can have multiple transports (see:
+for your logs. Each `marley` logger can have multiple transports (see:
 [Transports]) configured at different levels (see: [Logging levels]). For
 example, one may want error logs to be stored in a persistent remote location
 (like a database), but all logs output to the console or a local file.
 
-`winston` aims to decouple parts of the logging process to make it more
+`marley` aims to decouple parts of the logging process to make it more
 flexible and extensible. Attention is given to supporting flexibility in log
 formatting (see: [Formats]) & levels (see: [Using custom logging levels]), and
 ensuring those APIs decoupled from the implementation of transport logging
@@ -44,23 +44,23 @@ to add it!
 
 ## Usage
 
-The recommended way to use `winston` is to create your own logger. The
-simplest way to do this is using `winston.createLogger`:
+The recommended way to use `marley` is to create your own logger. The
+simplest way to do this is using `marley.createLogger`:
 
 ``` js
-const winston = require('winston');
+const marley = require('marley');
 
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   level: 'info',
-  format: winston.format.json(),
+  format: marley.format.json(),
   defaultMeta: { service: 'user-service' },
   transports: [
     //
     // - Write all logs with importance level of `error` or less to `error.log`
     // - Write all logs with importance level of `info` or less to `combined.log`
     //
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' }),
+    new marley.transports.File({ filename: 'error.log', level: 'error' }),
+    new marley.transports.File({ filename: 'combined.log' }),
   ],
 });
 
@@ -69,14 +69,14 @@ const logger = winston.createLogger({
 // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
 //
 if (process.env.NODE_ENV !== 'production') {
-  logger.add(new winston.transports.Console({
-    format: winston.format.simple(),
+  logger.add(new marley.transports.Console({
+    format: marley.format.simple(),
   }));
 }
 ```
 
 You may also log directly via the default logger exposed by
-`require('winston')`, but this merely intended to be a convenient shared
+`require('marley')`, but this merely intended to be a convenient shared
 logger to use throughout your application if you so choose.
 Note that the default logger doesn't have any transports by default.
 You need add transports by yourself, and leaving the default logger without any
@@ -104,24 +104,24 @@ transports may produce a high memory usage issue.
   * [Adding Custom Transports](#adding-custom-transports)
   * [Common Transport options](#common-transport-options)
 * [Exceptions](#exceptions)
-  * [Handling Uncaught Exceptions with winston](#handling-uncaught-exceptions-with-winston)
+  * [Handling Uncaught Exceptions with marley](#handling-uncaught-exceptions-with-marley)
   * [To Exit or Not to Exit](#to-exit-or-not-to-exit)
 * [Rejections](#rejections)
-  * [Handling Uncaught Promise Rejections with winston](#handling-uncaught-promise-rejections-with-winston)
+  * [Handling Uncaught Promise Rejections with marley](#handling-uncaught-promise-rejections-with-marley)
 * [Profiling](#profiling)
 * [Streaming Logs](#streaming-logs)
 * [Querying Logs](#querying-logs)
 * [Further Reading](#further-reading)
   * [Using the default logger](#using-the-default-logger)
-  * [Awaiting logs to be written in `winston`](#awaiting-logs-to-be-written-in-winston)
-  * [Working with multiple Loggers in `winston`](#working-with-multiple-loggers-in-winston)
+  * [Awaiting logs to be written in `marley`](#awaiting-logs-to-be-written-in-marley)
+  * [Working with multiple Loggers in `marley`](#working-with-multiple-loggers-in-marley)
   * [Routing Console transport messages to the console instead of stdout and stderr](#routing-console-transport-messages-to-the-console-instead-of-stdout-and-stderr)
 * [Installation](#installation)
 * [Run Tests](#run-tests)
 
 ## Logging
 
-Logging levels in `winston` conform to the severity ordering specified by
+Logging levels in `marley` conform to the severity ordering specified by
 [RFC5424]: _severity of all levels is assumed to be numerically **ascending**
 from most important to least important._
 
@@ -138,13 +138,13 @@ const levels = {
 ```
 
 ### Creating your own Logger
-You get started by creating a logger using `winston.createLogger`:
+You get started by creating a logger using `marley.createLogger`:
 
 ``` js
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({ filename: 'combined.log' })
+    new marley.transports.Console(),
+    new marley.transports.File({ filename: 'combined.log' })
   ]
 });
 ```
@@ -154,8 +154,8 @@ A logger accepts the following parameters:
 | Name          | Default                     |  Description    |
 | ------------- | --------------------------- | --------------- |
 | `level`       | `'info'`                    | Log only if [`info.level`](#streams-objectmode-and-info-objects) is less than or equal to this level  |
-| `levels`      | `winston.config.npm.levels` | Levels (and colors) representing log priorities            |
-| `format`      | `winston.format.json`       | Formatting for `info` messages  (see: [Formats])           |
+| `levels`      | `marley.config.npm.levels` | Levels (and colors) representing log priorities            |
+| `format`      | `marley.format.json`       | Formatting for `info` messages  (see: [Formats])           |
 | `transports`  | `[]` _(No transports)_      | Set of logging targets for `info` messages                 |
 | `exitOnError` | `true`                      | If false, handled exceptions will not cause `process.exit` |
 | `silent`      | `false`                     | If true, all logs are suppressed |
@@ -176,11 +176,11 @@ logger.info('Hello again distributed logs');
 ```
 
 You can add or remove transports from the `logger` once it has been provided
-to you from `winston.createLogger`:
+to you from `marley.createLogger`:
 
 ``` js
-const files = new winston.transports.File({ filename: 'combined.log' });
-const console = new winston.transports.Console();
+const files = new marley.transports.File({ filename: 'combined.log' });
+const console = new marley.transports.Console();
 
 logger
   .clear()          // Remove all transports
@@ -189,15 +189,15 @@ logger
   .remove(console); // Remove console transport
 ```
 
-You can also wholesale reconfigure a `winston.Logger` instance using the
+You can also wholesale reconfigure a `marley.Logger` instance using the
 `configure` method:
 
 ``` js
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   level: 'info',
   transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({ filename: 'combined.log' })
+    new marley.transports.Console(),
+    new marley.transports.File({ filename: 'combined.log' })
   ]
 });
 
@@ -205,7 +205,7 @@ const logger = winston.createLogger({
 // Replaces the previous transports with those in the
 // new configuration wholesale.
 //
-const DailyRotateFile = require('winston-daily-rotate-file');
+const DailyRotateFile = require('marley-daily-rotate-file');
 logger.configure({
   level: 'verbose',
   transports: [
@@ -219,9 +219,9 @@ logger.configure({
 You can create child loggers from existing loggers to pass metadata overrides:
 
 ``` js
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
-    new winston.transports.Console(),
+    new marley.transports.Console(),
   ]
 });
 
@@ -231,7 +231,7 @@ const childLogger = logger.child({ requestId: '451' });
 
 ### Streams, `objectMode`, and `info` objects
 
-In `winston`, both `Logger` and `Transport` instances are treated as
+In `marley`, both `Logger` and `Transport` instances are treated as
 [`objectMode`](https://nodejs.org/api/stream.html#stream_object_mode)
 streams that accept an `info` object.
 
@@ -302,17 +302,17 @@ console.log(SPLAT === Symbol.for('splat'));
 
 ## Formats
 
-Formats in `winston` can be accessed from `winston.format`. They are
-implemented in [`logform`](https://github.com/winstonjs/logform), a separate
-module from `winston`. This allows flexibility when writing your own transports
+Formats in `marley` can be accessed from `marley.format`. They are
+implemented in [`logform`](https://github.com/marleyjs/logform), a separate
+module from `marley`. This allows flexibility when writing your own transports
 in case you wish to include a default format with your transport.
 
 In modern versions of `node` template strings are very performant and are the
 recommended way for doing most end-user formatting. If you want to bespoke
-format your logs, `winston.format.printf` is for you:
+format your logs, `marley.format.printf` is for you:
 
 ``` js
-const { createLogger, format, transports } = require('winston');
+const { createLogger, format, transports } = require('marley');
 const { combine, timestamp, label, printf } = format;
 
 const myFormat = printf(({ level, message, label, timestamp }) => {
@@ -339,7 +339,7 @@ Any number of formats may be combined into a single format using
 returns pre-created instance of the combined format.
 
 ``` js
-const { createLogger, format, transports } = require('winston');
+const { createLogger, format, transports } = require('marley');
 const { combine, timestamp, label, prettyPrint } = format;
 
 const logger = createLogger({
@@ -372,7 +372,7 @@ messages using `format.splat` and then serializes the entire `info` message
 using `format.simple`.
 
 ``` js
-const { createLogger, format, transports } = require('winston');
+const { createLogger, format, transports } = require('marley');
 const logger = createLogger({
   format: format.combine(
     format.splat(),
@@ -397,7 +397,7 @@ If you wish to filter out a given `info` Object completely when logging then
 simply return a falsey value.
 
 ``` js
-const { createLogger, format, transports } = require('winston');
+const { createLogger, format, transports } = require('marley');
 
 // Ignore log messages if they have { private: true }
 const ignorePrivate = format((info, opts) => {
@@ -431,7 +431,7 @@ Use of `format.combine` will respect any falsey values return and stop
 evaluation of later formats in the series. For example:
 
 ``` js
-const { format } = require('winston');
+const { format } = require('marley');
 const { combine, timestamp, label } = format;
 
 const willNeverThrow = format.combine(
@@ -457,7 +457,7 @@ considered for future releases.
 - **A falsey value** indicating that the `info` argument should be ignored by the
 caller. (See: [Filtering `info` Objects](#filtering-info-objects)) below.
 
-`winston.format` is designed to be as simple as possible. To define a new
+`marley.format` is designed to be as simple as possible. To define a new
 format, simply pass it a `transform(info, opts)` function to get a new
 `Format`.
 
@@ -465,7 +465,7 @@ The named `Format` returned can be used to create as many copies of the given
 `Format` as desired:
 
 ``` js
-const { format } = require('winston');
+const { format } = require('marley');
 
 const volume = format((info, opts) => {
   if (opts.yell) {
@@ -502,7 +502,7 @@ console.dir(whisper.transform({
 
 ## Logging Levels
 
-Logging levels in `winston` conform to the severity ordering specified by
+Logging levels in `marley` conform to the severity ordering specified by
 [RFC5424]: _severity of all levels is assumed to be numerically **ascending**
 from most important to least important._
 
@@ -539,14 +539,14 @@ lowest):
 }
 ```
 
-If you do not explicitly define the levels that `winston` should use, the
+If you do not explicitly define the levels that `marley` should use, the
 `npm` levels above will be used.
 
 ### Using Logging Levels
 
 Setting the level for your logging message can be accomplished in one of two
 ways. You can pass a string representing the logging level to the log() method
-or use the level specified methods defined on every winston Logger.
+or use the level specified methods defined on every marley Logger.
 
 ``` js
 //
@@ -565,22 +565,22 @@ logger.error("127.0.0.1 - there's no place like home");
 //
 // Default logger
 //
-winston.log('info', "127.0.0.1 - there's no place like home");
-winston.info("127.0.0.1 - there's no place like home");
+marley.log('info', "127.0.0.1 - there's no place like home");
+marley.info("127.0.0.1 - there's no place like home");
 ```
 
-`winston` allows you to define a `level` property on each transport which
+`marley` allows you to define a `level` property on each transport which
 specifies the **maximum** level of messages that a transport should log. For
 example, using the `syslog` levels you could log only `error` messages to the
 console and everything `info` and below to a file (which includes `error`
 messages):
 
 ``` js
-const logger = winston.createLogger({
-  levels: winston.config.syslog.levels,
+const logger = marley.createLogger({
+  levels: marley.config.syslog.levels,
   transports: [
-    new winston.transports.Console({ level: 'error' }),
-    new winston.transports.File({
+    new marley.transports.Console({ level: 'error' }),
+    new marley.transports.File({
       filename: 'combined.log',
       level: 'info'
     })
@@ -592,11 +592,11 @@ You may also dynamically change the log level of a transport:
 
 ``` js
 const transports = {
-  console: new winston.transports.Console({ level: 'warn' }),
-  file: new winston.transports.File({ filename: 'combined.log', level: 'error' })
+  console: new marley.transports.Console({ level: 'warn' }),
+  file: new marley.transports.File({ filename: 'combined.log', level: 'error' })
 };
 
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
     transports.console,
     transports.file
@@ -609,13 +609,13 @@ transports.file.level = 'info';
 logger.info('Will be logged in both transports!');
 ```
 
-`winston` supports customizable logging levels, defaulting to npm style
+`marley` supports customizable logging levels, defaulting to npm style
 logging levels. Levels must be specified at the time of creating your logger.
 
 ### Using Custom Logging Levels
 
 In addition to the predefined `npm`, `syslog`, and `cli` levels available in
-`winston`, you can also choose to define your own:
+`marley`, you can also choose to define your own:
 
 ``` js
 const myCustomLevels = {
@@ -633,7 +633,7 @@ const myCustomLevels = {
   }
 };
 
-const customLevelLogger = winston.createLogger({
+const customLevelLogger = marley.createLogger({
   levels: myCustomLevels.levels
 });
 
@@ -643,10 +643,10 @@ customLevelLogger.foobar('some foobar level-ed message');
 Although there is slight repetition in this data structure, it enables simple
 encapsulation if you do not want to have colors. If you do wish to have
 colors, in addition to passing the levels to the Logger itself, you must make
-winston aware of them:
+marley aware of them:
 
 ``` js
-winston.addColors(myCustomLevels.colors);
+marley.addColors(myCustomLevels.colors);
 ```
 
 This enables loggers using the `colorize` formatter to appropriately color and style
@@ -674,43 +674,43 @@ Possible options are below.
 
 To colorize the standard logging level add
 ```js
-winston.format.combine(
-  winston.format.colorize(),
-  winston.format.simple()
+marley.format.combine(
+  marley.format.colorize(),
+  marley.format.simple()
 );
 ```
-where `winston.format.simple()` is whatever other formatter you want to use.  The `colorize` formatter must come before any formatters adding text you wish to color.
+where `marley.format.simple()` is whatever other formatter you want to use.  The `colorize` formatter must come before any formatters adding text you wish to color.
 
 ### Colorizing full log line when json formatting logs
 
 To colorize the full log line with the json formatter you can apply the following
 
 ```js
-winston.format.combine(
-  winston.format.json(),
-  winston.format.colorize({ all: true })
+marley.format.combine(
+  marley.format.json(),
+  marley.format.colorize({ all: true })
 );
 ```
 
 ## Transports
 
-There are several [core transports] included in  `winston`, which leverage the
+There are several [core transports] included in  `marley`, which leverage the
 built-in networking and file I/O offered by Node.js core. In addition, there
 are [additional transports] written by members of the community.
 
 ## Multiple transports of the same type
 
 It is possible to use multiple transports of the same type e.g.
-`winston.transports.File` when you construct the transport.
+`marley.transports.File` when you construct the transport.
 
 ``` js
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
-    new winston.transports.File({
+    new marley.transports.File({
       filename: 'combined.log',
       level: 'info'
     }),
-    new winston.transports.File({
+    new marley.transports.File({
       filename: 'errors.log',
       level: 'error'
     })
@@ -732,14 +732,14 @@ logger.remove(combinedLogs);
 ## Adding Custom Transports
 
 Adding a custom transport is easy. All you need to do is accept any options
-you need, implement a log() method, and consume it with `winston`.
+you need, implement a log() method, and consume it with `marley`.
 
 ``` js
-const Transport = require('winston-transport');
+const Transport = require('marley-transport');
 const util = require('util');
 
 //
-// Inherit from `winston-transport` so you can take advantage
+// Inherit from `marley-transport` so you can take advantage
 // of the base functionality and `.exceptions.handle()`.
 //
 module.exports = class YourCustomTransport extends Transport {
@@ -766,26 +766,26 @@ module.exports = class YourCustomTransport extends Transport {
 
 ## Common Transport options
 
-As every transport inherits from [winston-transport], it's possible to set
+As every transport inherits from [marley-transport], it's possible to set
 a custom format and a custom log level on each transport separately:
 
 ``` js
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
-    new winston.transports.File({
+    new marley.transports.File({
       filename: 'error.log',
       level: 'error',
-      format: winston.format.json()
+      format: marley.format.json()
     }),
-    new winston.transports.Http({
+    new marley.transports.Http({
       level: 'warn',
-      format: winston.format.json()
+      format: marley.format.json()
     }),
-    new winston.transports.Console({
+    new marley.transports.Console({
       level: 'info',
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.simple()
+      format: marley.format.combine(
+        marley.format.colorize(),
+        marley.format.simple()
       )
     })
   ]
@@ -794,14 +794,14 @@ const logger = winston.createLogger({
 
 ## Exceptions
 
-### Handling Uncaught Exceptions with winston
+### Handling Uncaught Exceptions with marley
 
-With `winston`, it is possible to catch and log `uncaughtException` events
+With `marley`, it is possible to catch and log `uncaughtException` events
 from your process. With your own logger instance you can enable this behavior
 when it's created or later on in your applications lifecycle:
 
 ``` js
-const { createLogger, transports } = require('winston');
+const { createLogger, transports } = require('marley');
 
 // Enable exception handling when you create your logger.
 const logger = createLogger({
@@ -833,15 +833,15 @@ If you want to use this feature with the default logger, simply call
 //
 // You can add a separate exception logger by passing it to `.exceptions.handle`
 //
-winston.exceptions.handle(
-  new winston.transports.File({ filename: 'path/to/exceptions.log' })
+marley.exceptions.handle(
+  new marley.transports.File({ filename: 'path/to/exceptions.log' })
 );
 
 //
 // Alternatively you can set `handleExceptions` to true when adding transports
-// to winston.
+// to marley.
 //
-winston.add(new winston.transports.File({
+marley.add(new marley.transports.File({
   filename: 'path/to/combined.log',
   handleExceptions: true
 }));
@@ -849,11 +849,11 @@ winston.add(new winston.transports.File({
 
 ### To Exit or Not to Exit
 
-By default, winston will exit after logging an uncaughtException. If this is
+By default, marley will exit after logging an uncaughtException. If this is
 not the behavior you want, set `exitOnError = false`
 
 ``` js
-const logger = winston.createLogger({ exitOnError: false });
+const logger = marley.createLogger({ exitOnError: false });
 
 //
 // or, like this:
@@ -868,12 +868,12 @@ transport.
 ##### Example 1
 
 ``` js
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
-    new winston.transports.File({ filename: 'path/to/combined.log' })
+    new marley.transports.File({ filename: 'path/to/combined.log' })
   ],
   exceptionHandlers: [
-    new winston.transports.File({ filename: 'path/to/exceptions.log' })
+    new marley.transports.File({ filename: 'path/to/exceptions.log' })
   ]
 });
 ```
@@ -881,9 +881,9 @@ const logger = winston.createLogger({
 ##### Example 2
 
 ``` js
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
-    new winston.transports.Console({
+    new marley.transports.Console({
       handleExceptions: true
     })
   ],
@@ -899,7 +899,7 @@ function ignoreEpipe(err) {
   return err.code !== 'EPIPE';
 }
 
-const logger = winston.createLogger({ exitOnError: ignoreEpipe });
+const logger = marley.createLogger({ exitOnError: ignoreEpipe });
 
 //
 // or, like this:
@@ -909,14 +909,14 @@ logger.exitOnError = ignoreEpipe;
 
 ## Rejections
 
-### Handling Uncaught Promise Rejections with winston
+### Handling Uncaught Promise Rejections with marley
 
-With `winston`, it is possible to catch and log `unhandledRejection` events
+With `marley`, it is possible to catch and log `unhandledRejection` events
 from your process. With your own logger instance you can enable this behavior
 when it's created or later on in your applications lifecycle:
 
 ``` js
-const { createLogger, transports } = require('winston');
+const { createLogger, transports } = require('marley');
 
 // Enable rejection handling when you create your logger.
 const logger = createLogger({
@@ -948,15 +948,15 @@ If you want to use this feature with the default logger, simply call
 //
 // You can add a separate rejection logger by passing it to `.rejections.handle`
 //
-winston.rejections.handle(
-  new winston.transports.File({ filename: 'path/to/rejections.log' })
+marley.rejections.handle(
+  new marley.transports.File({ filename: 'path/to/rejections.log' })
 );
 
 //
 // Alternatively you can set `handleRejections` to true when adding transports
-// to winston.
+// to marley.
 //
-winston.add(new winston.transports.File({
+marley.add(new marley.transports.File({
   filename: 'path/to/combined.log',
   handleRejections: true
 }));
@@ -964,7 +964,7 @@ winston.add(new winston.transports.File({
 
 ## Profiling
 
-In addition to logging messages and metadata, `winston` also has a simple
+In addition to logging messages and metadata, `marley` also has a simple
 profiling mechanism implemented for any logger:
 
 ``` js
@@ -1004,7 +1004,7 @@ logger.profile('test', { level: 'debug' });
 
 ## Querying Logs
 
-`winston` supports querying of logs with Loggly-like options. [See Loggly
+`marley` supports querying of logs with Loggly-like options. [See Loggly
 Search API](https://www.loggly.com/docs/api-retrieving-data/). Specifically:
 `File`, `Couchdb`, `Redis`, `Loggly`, `Nssocket`, and `Http`.
 
@@ -1038,7 +1038,7 @@ Streaming allows you to stream your logs back from your chosen transport.
 //
 // Start at the end.
 //
-winston.stream({ start: -1 }).on('log', function(log) {
+marley.stream({ start: -1 }).on('log', function(log) {
   console.log(log);
 });
 ```
@@ -1047,55 +1047,55 @@ winston.stream({ start: -1 }).on('log', function(log) {
 
 ### Using the Default Logger
 
-The default logger is accessible through the `winston` module directly. Any
+The default logger is accessible through the `marley` module directly. Any
 method that you could call on an instance of a logger is available on the
 default logger:
 
 ``` js
-const winston = require('winston');
+const marley = require('marley');
 
-winston.log('info', 'Hello distributed log files!');
-winston.info('Hello again distributed logs');
+marley.log('info', 'Hello distributed log files!');
+marley.info('Hello again distributed logs');
 
-winston.level = 'debug';
-winston.log('debug', 'Now my debug messages are written to console!');
+marley.level = 'debug';
+marley.log('debug', 'Now my debug messages are written to console!');
 ```
 
 By default, no transports are set on the default logger. You must
 add or remove transports via the `add()` and `remove()` methods:
 
 ``` js
-const files = new winston.transports.File({ filename: 'combined.log' });
-const console = new winston.transports.Console();
+const files = new marley.transports.File({ filename: 'combined.log' });
+const console = new marley.transports.Console();
 
-winston.add(console);
-winston.add(files);
-winston.remove(console);
+marley.add(console);
+marley.add(files);
+marley.remove(console);
 ```
 
 Or do it with one call to configure():
 
 ``` js
-winston.configure({
+marley.configure({
   transports: [
-    new winston.transports.File({ filename: 'somefile.log' })
+    new marley.transports.File({ filename: 'somefile.log' })
   ]
 });
 ```
 
 For more documentation about working with each individual transport supported
-by `winston` see the [`winston` Transports](docs/transports.md) document.
+by `marley` see the [`marley` Transports](docs/transports.md) document.
 
-### Awaiting logs to be written in `winston`
+### Awaiting logs to be written in `marley`
 
 Often it is useful to wait for your logs to be written before exiting the
-process. Each instance of `winston.Logger` is also a [Node.js stream]. A
+process. Each instance of `marley.Logger` is also a [Node.js stream]. A
 `finish` event will be raised when all logs have flushed to all transports
 after the stream has been ended.
 
 ``` js
-const transport = new winston.transports.Console();
-const logger = winston.createLogger({
+const transport = new marley.transports.Console();
+const logger = marley.createLogger({
   transports: [transport]
 });
 
@@ -1118,58 +1118,58 @@ you should handle or suppress if you don't want unhandled exceptions:
 logger.on('error', function (err) { /* Do Something */ });
 ```
 
-### Working with multiple Loggers in winston
+### Working with multiple Loggers in marley
 
 Often in larger, more complex, applications it is necessary to have multiple
 logger instances with different settings. Each logger is responsible for a
-different feature area (or category). This is exposed in `winston` in two
-ways: through `winston.loggers` and instances of `winston.Container`. In fact,
-`winston.loggers` is just a predefined instance of `winston.Container`:
+different feature area (or category). This is exposed in `marley` in two
+ways: through `marley.loggers` and instances of `marley.Container`. In fact,
+`marley.loggers` is just a predefined instance of `marley.Container`:
 
 ``` js
-const winston = require('winston');
-const { format } = winston;
+const marley = require('marley');
+const { format } = marley;
 const { combine, label, json } = format;
 
 //
 // Configure the logger for `category1`
 //
-winston.loggers.add('category1', {
+marley.loggers.add('category1', {
   format: combine(
     label({ label: 'category one' }),
     json()
   ),
   transports: [
-    new winston.transports.Console({ level: 'silly' }),
-    new winston.transports.File({ filename: 'somefile.log' })
+    new marley.transports.Console({ level: 'silly' }),
+    new marley.transports.File({ filename: 'somefile.log' })
   ]
 });
 
 //
 // Configure the logger for `category2`
 //
-winston.loggers.add('category2', {
+marley.loggers.add('category2', {
   format: combine(
     label({ label: 'category two' }),
     json()
   ),
   transports: [
-    new winston.transports.Http({ host: 'localhost', port:8080 })
+    new marley.transports.Http({ host: 'localhost', port:8080 })
   ]
 });
 ```
 
-Now that your loggers are setup, you can require winston _in any file in your
+Now that your loggers are setup, you can require marley _in any file in your
 application_ and access these pre-configured loggers:
 
 ``` js
-const winston = require('winston');
+const marley = require('marley');
 
 //
 // Grab your preconfigured loggers
 //
-const category1 = winston.loggers.get('category1');
-const category2 = winston.loggers.get('category2');
+const category1 = marley.loggers.get('category1');
+const category2 = marley.loggers.get('category2');
 
 category1.info('logging to file and console transports');
 category2.info('logging to http transport');
@@ -1178,11 +1178,11 @@ category2.info('logging to http transport');
 If you prefer to manage the `Container` yourself, you can simply instantiate one:
 
 ``` js
-const winston = require('winston');
-const { format } = winston;
+const marley = require('marley');
+const { format } = marley;
 const { combine, label, json } = format;
 
-const container = new winston.Container();
+const container = new marley.Container();
 
 container.add('category1', {
   format: combine(
@@ -1190,8 +1190,8 @@ container.add('category1', {
     json()
   ),
   transports: [
-    new winston.transports.Console({ level: 'silly' }),
-    new winston.transports.File({ filename: 'somefile.log' })
+    new marley.transports.Console({ level: 'silly' }),
+    new marley.transports.File({ filename: 'somefile.log' })
   ]
 });
 
@@ -1201,7 +1201,7 @@ category1.info('logging to file and console transports');
 
 ### Routing Console transport messages to the console instead of stdout and stderr
 
-By default the `winston.transports.Console` transport sends messages to `stdout` and `stderr`. This
+By default the `marley.transports.Console` transport sends messages to `stdout` and `stderr`. This
 is fine in most situations; however, there are some cases where this isn't desirable, including:
 
 - Debugging using VSCode and attaching to, rather than launching, a Node.js process
@@ -1212,25 +1212,25 @@ To make the transport log use `console.log()`, `console.warn()` and `console.err
 instead, set the `forceConsole` option to `true`:
 
 ```js
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   level: 'info',
-  transports: [new winston.transports.Console({ forceConsole: true })]
+  transports: [new marley.transports.Console({ forceConsole: true })]
 });
 ```
 
 ## Installation
 
 ``` bash
-npm install winston
+npm install marley
 ```
 
 ``` bash
-yarn add winston
+yarn add marley
 ```
 
 ## Run Tests
 
-All of the winston tests are written with [`mocha`][mocha], [`nyc`][nyc], and
+All of the marley tests are written with [`mocha`][mocha], [`nyc`][nyc], and
 [`assume`][assume].  They can be run with `npm`.
 
 ``` bash
@@ -1245,7 +1245,7 @@ npm test
 [Formats]: #formats
 [Using custom logging levels]: #using-custom-logging-levels
 [Adding Custom Transports]: #adding-custom-transports
-[core transports]: docs/transports.md#winston-core
+[core transports]: docs/transports.md#marley-core
 [additional transports]: docs/transports.md#additional-transports
 
 [RFC5424]: https://tools.ietf.org/html/rfc5424
@@ -1253,13 +1253,13 @@ npm test
 [mocha]: https://mochajs.org
 [nyc]: https://github.com/istanbuljs/nyc
 [assume]: https://github.com/bigpipe/assume
-[logform]: https://github.com/winstonjs/logform#readme
-[winston-transport]: https://github.com/winstonjs/winston-transport
+[logform]: https://github.com/marleyjs/logform#readme
+[marley-transport]: https://github.com/marleyjs/marley-transport
 
-[Read the `winston@2.x` documentation]: https://github.com/winstonjs/winston/tree/2.x
+[Read the `marley@2.x` documentation]: https://github.com/marleyjs/marley/tree/2.x
 
-[quick-example]: https://github.com/winstonjs/winston/blob/master/examples/quick-start.js
-[examples]: https://github.com/winstonjs/winston/tree/master/examples
+[quick-example]: https://github.com/marleyjs/marley/blob/master/examples/quick-start.js
+[examples]: https://github.com/marleyjs/marley/tree/master/examples
 
 [Charlie Robbins]: http://github.com/indexzero
 [Jarrett Cruger]: https://github.com/jcrugzz

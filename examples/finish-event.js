@@ -1,16 +1,16 @@
 'use strict';
 
-const winston = require('../');
+const marley = require('../');
 
 //
-// In winston@3.x both the Logger and the Transport are Node.js streams.
+// In marley@3.x both the Logger and the Transport are Node.js streams.
 // Node.js streams expose a `.end()` method that signals no more data will\
 // be written. The `"finish"` event is emitted after `.end()` has been called
 // **AND** all data has been flushed (i.e. all your logs have been written).
 //
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
-    new winston.transports.Console()
+    new marley.transports.Console()
   ]
 });
 

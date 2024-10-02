@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const winston = require('../lib/winston');
+const marley = require('../lib/marley');
 
 const filename = path.join(__dirname, 'created-logfile.log');
 
@@ -13,13 +13,13 @@ try { fs.unlinkSync(filename); }
 catch (ex) { }
 
 //
-// Create a new winston logger instance with two tranports: Console, and File
+// Create a new marley logger instance with two tranports: Console, and File
 //
 //
-const logger = winston.createLogger({
+const logger = marley.createLogger({
   transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({ filename })
+    new marley.transports.Console(),
+    new marley.transports.File({ filename })
   ]
 });
 
